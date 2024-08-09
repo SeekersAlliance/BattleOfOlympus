@@ -1,0 +1,237 @@
+<html lang="en">
+  <head>
+    <meta property="og:type" content="website" >
+    <meta property="og:title" content="Seekers Alliance" >
+    <link rel="icon" href="./favicon.ico">
+    <link rel="stylesheet" type="text/css" href="./style.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="./main.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@700&display=swap" rel="stylesheet">
+    <title>Seekers Alliance</title>
+    <style>
+      #main {
+        position: relative;
+      }
+      #main #main-content {
+        display: grid;
+    	  grid-template-rows: 5.5% 10% 12% 62.5%;
+	      grid-template-columns: 100%;
+    	  margin: 0 auto;
+        position: relative;
+        z-index: 2;
+      }
+      #main #logoposition {
+        z-index: -1;
+        justify-content: flex-start;
+        align-items: flex-start;
+      }
+      #main  #logoposition img {
+        width: 10%;
+        margin: 1% 0 0 1%;
+      }
+
+      #main #all-title img{
+        width: 23.44%;
+        height: auto;
+        aspect-ratio: 45/4;
+        max-width: 450px;
+        max-height: 40px;
+      }
+      #main-info, #main-btn {
+        width: 78.125%;
+        margin: 0px auto;
+
+      }
+      #main-info {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-content: center;
+      }
+      #MOVEfaucet {
+        width: 68%;
+        font-family: "Titillium Web", sans-serif;
+	      font-size: 12px;
+	      font-weight: 700;
+	      font-style: normal;
+      } 
+      #MOVEfaucet img#faucet_btn {
+        width: 35%;
+        vertical-align: middle;
+        margin-left: -5px;
+        margin-right: 5px;
+        cursor: pointer;
+      }
+      #MOVEfaucet img#aptos {
+        width: 53%;
+        vertical-align: middle;
+      }
+      #medal {
+        width: 32%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        align-content: center;
+        position: relative;
+      }
+      #medal div {
+        width: 30%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        align-content: center;
+      }
+      #medal #medal_R {
+        width: fit-content;
+        font-size: 32px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-content: center;
+      }
+      #medal img {
+        width: 40%;
+        display: block;
+        margin-right: 8%;
+      }
+      #main-btn {
+        background-image: url('./img/welcome_banner.png');
+      }
+      #main-btn, #main-btn > div {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        align-content: flex-end;
+      }
+      #main-btn > div {
+        width: 50%;
+        aspect-ratio: 1/1;
+        margin-right: 10px;
+      }
+
+      #main .on {
+        cursor: pointer;
+      }
+      #main .off {
+        cursor: default;
+      }
+      #needcard_txt, #buy_btn, #inventory_btn, #start_btn {
+        background-position: center right;
+        background-repeat: no-repeat;
+        background-size: 100% auto;
+      }
+      #needcard_txt {
+        width: 55.73%;
+        max-width: 418px;
+        max-height: 44px;
+        aspect-ratio: 418/44;
+      }
+      #needcard_txt img {
+        width: 100%;
+      }
+      #buy_btn, #inventory_btn {
+        margin-bottom: 10px;
+      }
+      #buy_btn, #inventory_btn {
+        width: 61%;
+        height: auto;
+        max-width: 455px;
+        max-height: 59px;
+        aspect-ratio: 455/59;
+      }
+      #buy_btn.on {
+        background-image: url(./img/buy_btn1.png);
+      }
+      #buy_btn.off {
+        background-image: url(./img/buy_btn2.png);
+      }
+      #inventory_btn.on {
+        background-image: url(./img/inventory_btn1.png);
+      }
+      #inventory_btn.off {
+        background-image: url(./img/inventory_btn2.png);
+      }
+      #start_btn {
+        width: 84%;
+        max-width: 630px;
+        max-height: 82px;
+        aspect-ratio: 630/82;
+        margin-bottom: 8px;
+      }
+      #start_btn.on {
+        background-image: url(./img/start_btn1.png);
+      }
+      #start_btn.off {
+        background-image: url(./img/start_btn2.png);
+      }
+
+
+      @media screen and (max-width: 1550px) {
+        #medal #medal_R {
+          font-size: 24px;
+        }
+      }
+      @media screen and (max-width: 1200px) {
+        #medal #medal_R {
+          font-size: 20px;
+        }
+      }
+      @media screen and (max-width: 750px) {
+        #medal #medal_R {
+          font-size: 12px;
+        }
+      }
+
+    </style>
+
+  </head>
+  <body>
+    <div id="main" class="container-block">
+      <div class="content" id="main-content">
+        <div id="pop_up_box" class="content noup">
+          <div id="pop_up">
+            <div><img src="./img/bet_title.png"></div>
+            <div id="pop_up_data">
+              <div>I want to bet</div>
+              <div><input id="pop_up_bet" type="number"></div>
+              <div><img src="./img/red_medal.png"></div>
+            </div>
+            <div>
+              <!-- if #pop_up_bet > 0, then #confirm_btn add class "on" and remove "off".-->
+              <img id="confirm_btn" class="off" src="./img/confirm_btn.png">
+              <img onclick="pop_cancel()" src="./img/cancel_btn.png">
+            </div>
+          </div>
+        </div>
+        <div class="content" id="logoposition">
+          <img src="./img/logo.png">
+        </div>
+        <div id="all-data">
+          <div><img src="./img/move2.png">Movement-Aptos</div>
+          <div id="wallet_address">address</div>
+        </div>
+        <div id="all-title">
+          <img src="./img/welcome_title.png">
+        </div>
+        <div id="main-info">
+          <div id="MOVEfaucet">
+            <img id="faucet_btn" src="./img/faucet_btn.png"><img id="aptos" src="./img/need_aptos_txt.png">
+          </div>
+          <div id="medal">
+            <div><img src="./img/red_medal.png"><div id="medal_R">00</div></div>
+          </div>
+        </div>
+        <div id="main-btn" class="bgsize">
+          <div>
+            <div id="needcard_txt"><img src="./img/need_card_txt.png"></div>
+            <a href="./anime.html"><div id="buy_btn" class="on"></div></a>
+            <div id="inventory_btn" class="off"></div>
+            <div id="start_btn" class="off"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
