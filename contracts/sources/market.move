@@ -80,7 +80,7 @@ module BattleOfOlympus::market {
     
 
 
-    #[test(admin = @0x123, buyer = @0x2, seller = @0x3)]
+    #[test(admin = @BattleOfOlympus, buyer = @0x2, seller = @0x3)]
     public fun test_draw_cards(admin: &signer, buyer: &signer, seller: &signer) {
 
         nft::init(admin);

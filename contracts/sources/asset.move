@@ -7,7 +7,7 @@
 /// 3. Burn fungible assets from fungible stores as the owner of metadata object.
 /// 4. Withdraw the merged fungible assets from fungible stores as the owner of metadata object.
 /// 5. Deposit fungible assets to fungible stores.
-module BattleOfOlympus::my_asset {
+module BattleOfOlympus::asset {
     use aptos_framework::fungible_asset::{Self, MintRef, TransferRef, BurnRef, Metadata, FungibleStore, FungibleAsset};
     use aptos_framework::object::{Self, Object, ConstructorRef};
     use aptos_framework::primary_fungible_store;
@@ -65,7 +65,7 @@ module BattleOfOlympus::my_asset {
     }
 
     /// Initialize metadata object and store the refs specified by `ref_flags`.
-    public fun initialize(
+    fun initialize(
         constructor_ref: &ConstructorRef,
         maximum_supply: u128,
         name: String,
@@ -132,7 +132,7 @@ module BattleOfOlympus::my_asset {
 
 
     /// Mint as the owner of metadata object to multiple fungible stores with amounts of FAs.
-    public entry fun mint(
+    fun mint(
         admin: &signer,
         asset: Object<Metadata>,
         stores: vector<Object<FungibleStore>>,
@@ -152,12 +152,11 @@ module BattleOfOlympus::my_asset {
     /// accounts.
     public entry fun transfer_between_primary_stores(
         admin: &signer,
-        _from: address,
         _to: address,
         _amounts: u64
     ) acquires ManagingRefs, MyAsset {
         let asset = borrow_global_mut<MyAsset>(@BattleOfOlympus).asset;
-        let from = vector[_from];
+        let from = vector[signer::address_of(admin)];
         let to = vector[_to];
         let amounts = vector[_amounts];
 
@@ -173,7 +172,7 @@ module BattleOfOlympus::my_asset {
     }
 
     /// Transfer as the owner of metadata object ignoring `frozen` field between fungible stores.
-    public entry fun transfer(
+    fun transfer(
         admin: &signer,
         sender_stores: vector<Object<FungibleStore>>,
         receiver_stores: vector<Object<FungibleStore>>,
@@ -200,9 +199,10 @@ module BattleOfOlympus::my_asset {
     /// Burn fungible assets as the owner of metadata object from the primary stores of accounts.
     public entry fun burn_from_primary_stores(
         admin: &signer,
-        from: vector<address>,
-        amounts: vector<u64>
+        _amounts: u64
     ) acquires ManagingRefs, MyAsset {
+        let from = vector[signer::address_of(admin)];
+        let amounts = vector[_amounts];
         let asset = borrow_global_mut<MyAsset>(@BattleOfOlympus).asset;
         let primary_stores = vector::map(
             from,
@@ -212,7 +212,7 @@ module BattleOfOlympus::my_asset {
     }
 
     /// Burn fungible assets as the owner of metadata object from fungible stores.
-    public entry fun burn(
+    fun burn(
         admin: &signer,
         stores: vector<Object<FungibleStore>>,
         amounts: vector<u64>
@@ -229,31 +229,9 @@ module BattleOfOlympus::my_asset {
     }
 
 
-    /// Freeze/unfreeze the primary stores of accounts so they cannot transfer or receive fungible assets.
-    public entry fun set_primary_stores_frozen_status(
-        admin: &signer,
-        accounts: vector<address>,
-        frozen: bool
-    ) acquires ManagingRefs, MyAsset {
-        let asset = borrow_global_mut<MyAsset>(@BattleOfOlympus).asset;
-        let primary_stores = vector::map(accounts, |acct| {
-            primary_fungible_store::ensure_primary_store_exists(acct, asset)
-        });
-        set_frozen_status(admin, primary_stores, frozen);
-    }
 
-    /// Freeze/unfreeze the fungible stores so they cannot transfer or receive fungible assets.
-    public entry fun set_frozen_status(
-        admin: &signer,
-        stores: vector<Object<FungibleStore>>,
-        frozen: bool
-    ) acquires ManagingRefs, MyAsset {
-        let asset = borrow_global_mut<MyAsset>(@BattleOfOlympus).asset;
-        let transfer_ref = authorized_borrow_transfer_ref(admin, asset);
-        vector::for_each(stores, |store| {
-            fungible_asset::set_frozen_flag(transfer_ref, store, frozen);
-        });
-    }
+
+
 
     /// Withdraw as the owner of metadata object ignoring `frozen` field from primary fungible stores of accounts.
     public fun withdraw_from_primary_stores(
@@ -400,9 +378,10 @@ module BattleOfOlympus::my_asset {
         *borrow_global_mut<MyAsset>(@BattleOfOlympus)
     }
 
-    #[test(creator = @BattleOfOlympus)]
+    #[test(creator = @BattleOfOlympus, aaron = @0xface)]
     fun test_basic_flow(
         creator: &signer,
+        aaron: &signer
     ) acquires ManagingRefs, MyAsset {
         init_module(creator);
         let creator_address = signer::address_of(creator);
@@ -414,19 +393,15 @@ module BattleOfOlympus::my_asset {
         assert!(primary_fungible_store::balance(creator_address, metadata) == 100, 1);
         assert!(primary_fungible_store::balance(aaron_address, metadata) == 50, 2);
 
-        set_primary_stores_frozen_status(creator, vector[creator_address, aaron_address], true);
-        assert!(primary_fungible_store::is_frozen(creator_address, metadata), 3);
-        assert!(primary_fungible_store::is_frozen(aaron_address, metadata), 4);
+        
 
-        transfer_between_primary_stores(creator, creator_address, aaron_address, 10);
-        transfer_between_primary_stores(creator, aaron_address, creator_address, 5);
+        transfer_between_primary_stores(creator, aaron_address, 10);
+        transfer_between_primary_stores(aaron, creator_address, 5);
         assert!(primary_fungible_store::balance(creator_address, metadata) == 95, 5);
         assert!(primary_fungible_store::balance(aaron_address, metadata) == 55, 6);
         debug::print(&get_balance(creator_address));
 
-        set_primary_stores_frozen_status(creator, vector[creator_address, aaron_address], false);
-        assert!(!primary_fungible_store::is_frozen(creator_address, metadata), 7);
-        assert!(!primary_fungible_store::is_frozen(aaron_address, metadata), 8);
+        
 
         let fa = withdraw_from_primary_stores(
             creator,
@@ -437,7 +412,8 @@ module BattleOfOlympus::my_asset {
         deposit_to_primary_stores(creator, &mut fa, vector[creator_address, aaron_address], vector[30, 10]);
         fungible_asset::destroy_zero(fa);
 
-        burn_from_primary_stores(creator, vector[creator_address, aaron_address], vector[100, 50]);
+        burn_from_primary_stores(creator, 100);
+        burn_from_primary_stores(aaron, 50);
         assert!(primary_fungible_store::balance(creator_address, metadata) == 0, 10);
         assert!(primary_fungible_store::balance(aaron_address, metadata) == 0, 11);
     }
@@ -452,4 +428,5 @@ module BattleOfOlympus::my_asset {
         let aaron_address = signer::address_of(aaron);
         mint_to_primary_stores(aaron, aaron_address, 100);
     }
+
 }
