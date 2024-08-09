@@ -38,7 +38,7 @@ module BattleOfOlympus::market {
 
     public entry fun draw_cards/* <CoinType> */(sender: &signer, _random_seed: u64) {
         
-
+        //TEST
         /* let withdrawn_coin = coin::withdraw<CoinType>(sender, 10000000);
         let admin_address: address = @0x20808790e8eb0b6cfbf49ac751107aa41edd9ef01f2c7191cdc32326c50092bb;
         coin::deposit<CoinType>(admin_address, withdrawn_coin); */
