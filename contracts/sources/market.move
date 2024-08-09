@@ -6,13 +6,11 @@ module BattleOfOlympus::market {
     use std::debug;
     use std::bcs;
     use std::string;
-    use aptos_std::from_bcs;
     use std::hash;
     use aptos_std::table;
     use aptos_std::table::Table;
     use aptos_framework::event;
     use aptos_framework::coin;
-    use aptos_framework::randomness;
     use aptos_framework::account;
     use aptos_framework::account::SignerCapability;
     use BattleOfOlympus::nft;
