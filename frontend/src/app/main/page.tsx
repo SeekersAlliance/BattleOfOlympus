@@ -1,18 +1,45 @@
 'use client'
 import React from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+import { useAptosWallet } from '@razorlabs/wallet-kit';
+import { address_formatter} from '../_utils/helper'
+import { get_token_balance, get_nft_balance } from '../_utils/chain';
+import { get } from 'http';
 
-const card_num = 3;
 const Home = () => {
+  const wallet = useAptosWallet();
+  const router = useRouter();
   const [popup, setPopup] = React.useState(false)
   const [valid, setValid] = React.useState(false)
+  const [balance, setBalance] = React.useState(0)
+  const [cardNum, setCardNum] = React.useState(0)
+
   React.useEffect(() => {
-    if (card_num>=50) {
+    const _get_token_balance = async () => {
+      let balance = await get_token_balance(wallet?.address);
+      setBalance(balance);
+    }
+    const _get_nft_balance = async () => {
+      let nft_balance = await get_nft_balance(wallet?.address);
+      setCardNum(nft_balance.length)
+    }
+    if (wallet.account === undefined) {
+      wallet.disconnect();
+      router.push("/")
+    }else{
+      _get_token_balance()
+      _get_nft_balance()
+    }
+  }
+  , [wallet]);
+  React.useEffect(() => {
+    if (cardNum >= 50) {
       setValid(true)
     } else {
       setValid(false)
     }
-  }, [card_num])
+  }, [cardNum])
 
 
   const pop_cancel = () => {
@@ -20,6 +47,9 @@ const Home = () => {
   }
   const pop_alert = () => {
       setPopup(true)
+  }
+  const handle_faucet = () => {
+    window.open("https://faucet.movementlabs.xyz/?network=aptos", "_blank");
   }
   return (
     <div id="main" className="container-block">
@@ -49,23 +79,23 @@ const Home = () => {
             <img src="./img/move2.png"/>
             <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>Movement-Aptos</div>
           </div>
-          <div id="wallet_address">walle...ress</div>
+          <div id="wallet_address" style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>{address_formatter(wallet?.address)}</div>
         </div>
         <div id="all-title">
           <img src="./img/welcome_title.png"/>
         </div>
         <div id="main-info">
           <div id="MOVEfaucet">
-            <img id="faucet_btn" src="./img/faucet_btn.png"/><img id="aptos" src="./img/need_aptos_txt.png"/>
+            <img id="faucet_btn" src="./img/faucet_btn.png" onClick={handle_faucet}/><img id="aptos" src="./img/need_aptos_txt.png"/>
           </div>
           <div id="medal">
-            <div><img src="./img/red_medal.png"/><div id="medal_R">00</div></div>
+            <div><img src="./img/red_medal.png"/><div id="medal_R">{balance}</div></div>
           </div>
         </div>
         <div id="main-btn" className="bgsize">
           <div>
             {valid?<></>:<div id="needcard_txt"><img src="./img/need_card_txt.png"/></div>}
-            <a href="./anime"><div id="buy_btn" className={valid? "off":"on"}></div></a>
+            <Link href="./anime"><div id="buy_btn" className={valid? "off":"on"}></div></Link>
             <div id="inventory_btn" className={valid? "on":"off"}></div>
             <div id="start_btn" className={valid? "on":"off"} onClick={valid? pop_alert:()=>{}}></div>
           </div>
