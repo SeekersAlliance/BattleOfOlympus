@@ -24,12 +24,16 @@ const Home = () => {
       let nft_balance = await get_nft_balance(wallet?.address);
       setCardNum(nft_balance.length)
     }
+    if (wallet.account !== undefined) {
+      _get_token_balance()
+      _get_nft_balance()
+    }
+  }
+  , []);
+  React.useEffect(() => {
     if (wallet.account === undefined) {
       wallet.disconnect();
       router.push("/")
-    }else{
-      _get_token_balance()
-      _get_nft_balance()
     }
   }
   , [wallet]);

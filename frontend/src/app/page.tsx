@@ -6,6 +6,7 @@ import { useAptosWallet } from '@razorlabs/wallet-kit';
 import '@razorlabs/wallet-kit/style.css';
 import React from 'react';
 export default function Home() {
+  const [showButton, setShowButton] = React.useState(true);
   let wallet = useAptosWallet();
   const router = useRouter();
   React.useEffect(() => {
@@ -17,12 +18,13 @@ export default function Home() {
         router.push("/main");
       }
     }else{
-      if(wallet.connected)
+      if(wallet.connected){
         wallet?.disconnect();
+        setShowButton(true);
+      }
     }
   }
   , [wallet]);
-  console.log(wallet);
   return (
     <div id="index" className="container-block bgsize">
       <div className="content" id="logoposition">
@@ -33,7 +35,7 @@ export default function Home() {
         <div></div>
         <div id="cnt_bt">
           {/* <Link href="./main" target="_self"><img src="./img/connect_button.png"/></Link> */}
-          <AptosConnectButton><img src="./img/connect_button.png"/></AptosConnectButton>
+          <AptosConnectButton style={{display:showButton?"":"none"}} onConnectSuccess={()=>{setShowButton(false)}}><img src="./img/connect_button.png"/></AptosConnectButton>
         </div>
         <div></div>
       </div>

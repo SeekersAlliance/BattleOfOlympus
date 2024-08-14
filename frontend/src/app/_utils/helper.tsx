@@ -4,7 +4,6 @@ export const address_formatter = (address: string | undefined) => {
 }
 
 export const nft_balance_formatter = (balance: string): number[] => {
-  /* turn 0x0103040506 -> [1,3,4,5,6] */
   let res: number[] = []
   for (let i = 2; i < balance.length; i += 2) {
     res.push(parseInt(balance.slice(i, i + 2), 16))
