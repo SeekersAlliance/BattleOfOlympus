@@ -19,7 +19,7 @@ module BattleOfOlympus::nft{
 
     const RESOURCECAPSEED : vector<u8> = b"Seekers Alliance";
 
-    const ENOT_TOKEN_OWNER: u64 = 1;
+    const NOT_TOKEN_OWNER: u64 = 1;
     const TOO_MANY_CARDS: u64 = 2;
 
 
@@ -95,10 +95,7 @@ module BattleOfOlympus::nft{
         move_to(sender, nftBalance);
     }
 
-    //TEST
-    public fun init(sender: &signer) {
-        init_module(sender);
-    }
+    
     
 
 
@@ -171,7 +168,7 @@ module BattleOfOlympus::nft{
     public entry fun transfer(from: &signer, token: Object<Token>, to: address,) acquires TokenRef{
 
             // redundant error checking for clear error message
-        assert!(object::is_owner(token, signer::address_of(from)), error::permission_denied(ENOT_TOKEN_OWNER));
+        assert!(object::is_owner(token, signer::address_of(from)), error::permission_denied(NOT_TOKEN_OWNER));
         let token_ref = borrow_global<TokenRef>(object::object_address(&token));
 
         // generate linear transfer ref and transfer the token object
@@ -197,7 +194,7 @@ module BattleOfOlympus::nft{
         while (i < max_number) {
             let my_token = vector::pop_back(playerToken);
             vector::pop_back(playerBalance);
-            assert!(object::is_owner(my_token, signer::address_of(sender)), error::permission_denied(ENOT_TOKEN_OWNER));
+            assert!(object::is_owner(my_token, signer::address_of(sender)), error::permission_denied(NOT_TOKEN_OWNER));
             let TokenRef{ burn_ref, transfer_ref } = move_from<TokenRef>(object::object_address(&my_token));
             token::burn(burn_ref);
             i = i + 1;
@@ -231,7 +228,10 @@ module BattleOfOlympus::nft{
     public fun get_collection_address():address {
         return account::get_address(&@BattleOfOlympus);
     } */
-
+    #[test_only]
+    public fun init(sender: &signer) {
+        init_module(sender);
+    }
 
     
     #[test(admin = @BattleOfOlympus, buyer = @0x2, seller = @0x3)]

@@ -12,6 +12,7 @@ module BattleOfOlympus::asset {
     use aptos_framework::object::{Self, Object, ConstructorRef};
     use aptos_framework::primary_fungible_store;
     use aptos_framework::object::object_from_constructor_ref;
+    use aptos_framework::event;
     use std::error;
     use std::signer;
     use std::string::String;
@@ -44,6 +45,23 @@ module BattleOfOlympus::asset {
 
     struct MyAsset has key, copy, drop {
         asset: Object<Metadata>
+    }
+
+    #[event]
+    struct MintEvent has drop, store {
+        owner: address,
+        amount: u64,
+    }
+    #[event]
+    struct TransferEvent has drop, store {
+        sender: address,
+        receiver: address,
+        amount: u64,
+    }
+    #[event]
+    struct BurnEvent has drop, store {
+        owner: address,
+        amount: u64,
     }
 
     fun init_module(signer: &signer){
@@ -128,6 +146,7 @@ module BattleOfOlympus::asset {
             |addr| primary_fungible_store::ensure_primary_store_exists(addr, asset)
         );
         mint(admin, asset, receiver_primary_stores, amounts);
+        event::emit(MintEvent{owner: signer::address_of(admin), amount: _amounts});
     }
 
 
@@ -169,6 +188,7 @@ module BattleOfOlympus::asset {
             |addr| primary_fungible_store::ensure_primary_store_exists(addr, asset)
         );
         transfer(admin, sender_primary_stores, receiver_primary_stores, amounts);
+        event::emit(TransferEvent{sender: signer::address_of(admin), receiver: _to, amount: _amounts});
     }
 
     /// Transfer as the owner of metadata object ignoring `frozen` field between fungible stores.
@@ -209,6 +229,7 @@ module BattleOfOlympus::asset {
             |addr| primary_fungible_store::primary_store(addr, asset)
         );
         burn(admin, primary_stores, amounts);
+        event::emit(BurnEvent{owner: signer::address_of(admin), amount: _amounts});
     }
 
     /// Burn fungible assets as the owner of metadata object from fungible stores.
@@ -376,6 +397,10 @@ module BattleOfOlympus::asset {
     #[test_only]
     fun getMyAsset(): MyAsset acquires MyAsset {
         *borrow_global_mut<MyAsset>(@BattleOfOlympus)
+    }
+    #[test_only]
+    public fun init(creator: &signer) {
+        init_module(creator);
     }
 
     #[test(creator = @BattleOfOlympus, aaron = @0xface)]
