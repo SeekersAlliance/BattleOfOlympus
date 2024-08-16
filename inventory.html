@@ -1,0 +1,200 @@
+<html lang="en">
+  <head>
+    <meta property="og:type" content="website" >
+    <meta property="og:title" content="Seekers Alliance" >
+    <link rel="icon" href="./favicon.ico">
+    <link rel="stylesheet" type="text/css" href="./style.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="./main.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@700&display=swap" rel="stylesheet">
+    <title>Seekers Alliance</title>
+    <style>
+      #inventory {
+        position: relative;
+      }
+      #inventory #ivt-content {
+        display: grid;
+    	  grid-template-rows: 5.5% 12% 68.5% 14%;
+	      grid-template-columns: 100%;
+    	  margin: 0 auto;
+        position: relative;
+        z-index: 2;
+      }
+      #inventory #logoposition {
+        z-index: 50;
+      }
+
+      #inventory #all-title{
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        position: relative;
+      }
+      #inventory #all-title > div {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 3;
+      }
+      #inventory #all-title div {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-content: flex-end;
+      }
+      #inventory #all-title #inventory-info.more50 {
+        justify-content: flex-start;
+      }
+      #inventory #all-title div img {
+        width: 100%;
+      }
+      #inventory #all-title #inventoryTtl{
+        width: 12.917%;
+        height: auto;
+        aspect-ratio: 248/35;
+        max-width: 248px;
+        max-height: 35px;
+      }
+      #inventory #all-title #burn_btn {
+        width: 12.4%;
+        height: auto;
+        aspect-ratio: 238/68;
+        max-width: 238px;
+        max-height: 68px;
+        margin-left: 7.5%;
+        cursor: pointer;
+      }
+      #inventory #all-title #needcardtxt {
+        width: 21.77%;
+        height: auto;
+        aspect-ratio: 418/44;
+        max-width: 418px;
+        max-height: 44px;
+        margin-right: 7.5%;
+      }
+
+      #inventory_drawbox {
+        width: 85%;
+        background-image: url("./img/box.png");
+        margin: 0px auto;
+      }
+      #inventory_drawbox.bgsize {
+        background-size: 100% 100%;
+      }
+      #inventory_drawbox > div {
+        width: 85%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-content: center;
+        margin: 2% auto 0;
+      }
+      #inventory_drawbox > div img {
+        width: 10%;
+        margin-top: -0.25%;
+      }
+
+      #inventory #buymore_btn, #inventory #start_btn {
+        width: 23.7%;
+        max-width: 455px;
+        max-height: 59px;
+        aspect-ratio: 455/59;
+        margin-bottom: 8px;
+        background-position: center right;
+        background-repeat: no-repeat;
+        background-size: 100% auto;
+      }
+      #buymore_btn {
+        margin-right: 1%;
+      }
+
+      #inventory #warning_pop_box {
+        background-color: rgba(0, 0, 0, 0.8);
+      }
+      #inventory #warning_pop {
+        width: 61.875%;
+      	height: auto;
+      	aspect-ratio: 1188/673;
+      	max-width: 1188px;
+	      max-height: 673px;
+      	background-image: url("./img/warning_pop_up.png");
+      	display: grid;
+	      grid-template-rows: 72% 28%;
+      }
+      #inventory #warning_pop .buttons {
+        align-content: flex-start;
+      }
+      #inventory #warning_pop .buttons img:first-child {
+        margin-right: 1%;
+      }
+
+    </style>
+
+  </head>
+  <body>
+    <div id="inventory" class="container-block">
+      <div class="content" id="ivt-content">
+        <div id="warning_pop_box" class="pop_up_box content noup">
+          <div id="warning_pop" class="pop_up bgsize">
+            <div></div>
+            <div class="buttons">
+              <img class="on" src="./img/yes_btn.png">
+              <img class="on" onclick="warning_pop_cancel()" src="./img/no_btn.png">
+            </div>
+          </div>
+        </div>
+        <div id="place_bet_box" class="pop_up_box content noup">
+          <div id="place_bet" class="pop_up">
+            <div><img src="./img/bet_title.png"></div>
+            <div class="pop_up_data">
+              <div>I want to bet</div>
+              <div><input id="pop_up_bet" type="number"></div>
+              <div><img src="./img/red_medal.png"></div>
+            </div>
+            <div class="buttons">
+              <!-- if #pop_up_bet > 0, then #confirm_btn add class "on" and remove "off".-->
+              <img id="confirm_btn" class="off" src="./img/confirm_btn.png">
+              <img onclick="place_cancel()" src="./img/cancel_btn.png">
+            </div>
+          </div>
+        </div>
+        <div id="all-data">
+          <div id="logoposition">
+            <a href="./main.html" target="_self"><img src="./img/logo.png"></a>
+          </div>
+          <div id="Aptos"><img src="./img/move2.png">Movement-Aptos</div>
+          <div id="wallet_address"></div>
+        </div>
+        <div id="all-title">
+          <img id="inventoryTtl" src="./img/inventory_title.png">
+          <div id="inventory-info">
+            <div id="burn_btn" onclick="warning_pop_alert()"><img src="./img/burn_btn.png"></div>
+            <div id="needcardtxt"><img src="./img/need_card_txt.png"></div>
+          </div>
+          </div>
+        <div id="inventory_drawbox" class="bgsize">
+          <div>
+            <img src="./img/cards/1.png">
+            <img src="./img/cards/1.png">
+            <img src="./img/cards/2.png">
+            <img src="./img/cards/3.png">
+            <img src="./img/cards/4.png">
+            <img src="./img/cards/5.png">
+            <img src="./img/cards/5.png">
+            <img src="./img/cards/6.png">
+            <img src="./img/cards/6.png">
+            <img src="./img/cards/7.png">
+          </div>
+        </div>
+        <div class="buttons">
+          <!--  if have 50 cards, #buymore_btn add class "off", remove "on", and remove onclick event : -->
+          <div id="buymore_btn" class="on" onclick="goReceived()"></div>
+          <!--  if player can start play, #start_btn add class "on", remove "off", and add onclick event "place_alert()" : -->
+          <div id="start_btn" class="off"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

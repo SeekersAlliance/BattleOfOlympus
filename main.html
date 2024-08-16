@@ -22,15 +22,6 @@
         position: relative;
         z-index: 2;
       }
-      #main #logoposition {
-        z-index: -1;
-        justify-content: flex-start;
-        align-items: flex-start;
-      }
-      #main  #logoposition img {
-        width: 10%;
-        margin: 1% 0 0 1%;
-      }
 
       #main #all-title img{
         width: 23.44%;
@@ -110,13 +101,7 @@
         aspect-ratio: 1/1;
         margin-right: 10px;
       }
-
-      #main .on {
-        cursor: pointer;
-      }
-      #main .off {
-        cursor: default;
-      }
+      
       #needcard_txt, #buy_btn, #inventory_btn, #start_btn {
         background-position: center right;
         background-repeat: no-repeat;
@@ -131,40 +116,22 @@
       #needcard_txt img {
         width: 100%;
       }
-      #buy_btn, #inventory_btn {
+      #main #buy_btn, #main #inventory_btn {
         margin-bottom: 10px;
       }
-      #buy_btn, #inventory_btn {
+      #main #buy_btn, #main #inventory_btn {
         width: 61%;
         height: auto;
         max-width: 455px;
         max-height: 59px;
         aspect-ratio: 455/59;
       }
-      #buy_btn.on {
-        background-image: url(./img/buy_btn1.png);
-      }
-      #buy_btn.off {
-        background-image: url(./img/buy_btn2.png);
-      }
-      #inventory_btn.on {
-        background-image: url(./img/inventory_btn1.png);
-      }
-      #inventory_btn.off {
-        background-image: url(./img/inventory_btn2.png);
-      }
-      #start_btn {
+      #main #start_btn {
         width: 84%;
         max-width: 630px;
         max-height: 82px;
         aspect-ratio: 630/82;
         margin-bottom: 8px;
-      }
-      #start_btn.on {
-        background-image: url(./img/start_btn1.png);
-      }
-      #start_btn.off {
-        background-image: url(./img/start_btn2.png);
       }
 
 
@@ -190,10 +157,10 @@
   <body>
     <div id="main" class="container-block">
       <div class="content" id="main-content">
-        <div id="pop_up_box" class="content noup">
-          <div id="pop_up">
+        <div id="place_bet_box" class="pop_up_box content noup">
+          <div id="place_bet" class="pop_up">
             <div><img src="./img/bet_title.png"></div>
-            <div id="pop_up_data">
+            <div class="pop_up_data">
               <div>I want to bet</div>
               <div><input id="pop_up_bet" type="number"></div>
               <div><img src="./img/red_medal.png"></div>
@@ -201,7 +168,7 @@
             <div>
               <!-- if #pop_up_bet > 0, then #confirm_btn add class "on" and remove "off".-->
               <img id="confirm_btn" class="off" src="./img/confirm_btn.png">
-              <img onclick="pop_cancel()" src="./img/cancel_btn.png">
+              <img onclick="place_cancel()" src="./img/cancel_btn.png">
             </div>
           </div>
         </div>
@@ -209,8 +176,8 @@
           <img src="./img/logo.png">
         </div>
         <div id="all-data">
-          <div><img src="./img/move2.png">Movement-Aptos</div>
-          <div id="wallet_address">address</div>
+          <div id="Aptos"><img src="./img/move2.png">Movement-Aptos</div>
+          <div id="wallet_address"></div>
         </div>
         <div id="all-title">
           <img src="./img/welcome_title.png">
@@ -225,8 +192,21 @@
         </div>
         <div id="main-btn" class="bgsize">
           <div>
+            <!--  if have 50 cards, please execute this code :
+            $("#needcard_txt").remove();
+            $("#buy_btn").addClass("off");
+            $("#buy_btn").removeClass("on");
+            $("#buy_btn").removeAttr("onclick", "goAnime()");
+            ----  if page of inventory have cards : ----
+            $("#inventory_btn").addClass("on");
+            $("#inventory_btn").removeClass("off");
+            $("#inventory_btn").attr("onclick", "goInventory()");
+            ----  if player can start play : ----
+            $("#start_btn").addClass("on");
+            $("#start_btn").removeClass("off");
+            $("#start_btn").attr("onclick", "place_alert()"); -->
             <div id="needcard_txt"><img src="./img/need_card_txt.png"></div>
-            <a href="./anime.html"><div id="buy_btn" class="on"></div></a>
+            <div id="buy_btn" class="on" onclick="goAnime()"></div>
             <div id="inventory_btn" class="off"></div>
             <div id="start_btn" class="off"></div>
           </div>
