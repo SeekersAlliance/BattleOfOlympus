@@ -85,16 +85,17 @@ a:active {
 	position: absolute;
 	display: flex;
 	flex-wrap: nowrap;
-	justify-content: flex-end;
-	align-items: flex-end;
-	z-index: 0;
+	justify-content: flex-start;
+	align-items: flex-start;
+	z-index: -1;
 }
 
 #logoposition img {
-	width: 10%;
+	width: 14.5%;
 	height: auto;
 	aspect-ratio: 267/88;
-	margin: 0 13px 11px 0;
+	margin: 1% 0 0 1%;
+	z-index: 50;
 }
 
 
@@ -105,29 +106,32 @@ a:active {
 	align-content: flex-end;
 }
 
-#all-data div {
+#all-data div{
+	font-size: 28px;
+	border-radius: 6px;
+}
+#all-data #Aptos, #all-data #wallet_address {
 	width: fit-content;
-  height: 70%;
 	min-width: 1%;
 	text-align: center;
 	white-space: nowrap;
-	font-size: 28px;
 	background-color: #434343;
-	border-radius: 6px;
 }
 
-#all-data div:first-child {
+#all-data #Aptos {
 	padding: 2px 1.5%;
 	margin-right: 0.75%;
 }
 
-#all-data div:first-child img {
+#all-data #Aptos img {
 	width: 15%;
-	aspect-ratio: 25/19;
+	height: auto;
+	aspect-ratio: 50/39;
 	vertical-align: middle;
+	margin: -5px 6px 0 0;
 }
 
-#all-data div:last-child {
+#all-data #wallet_address {
 	padding: 2px 2.5%;
 	margin-right: 1%;
 }
@@ -152,27 +156,34 @@ video {
 	pointer-events: none;
 }
 
-#buttons {
+.buttons {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
 	align-content: center;
 }
+.on {
+	cursor: pointer;
+}
+.off {
+	cursor: default;
+}
 
-#pop_up_box {
+.pop_up_box {
 	position: absolute;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
 	align-content: center;
+	z-index: 99;
 }
-#pop_up_box.up {
+.pop_up_box.up {
 	display: flex;
 }
-#pop_up_box.noup {
+.pop_up_box.noup {
 	display: none;
 }
-#pop_up {
+.pop_up {
 	width: 61.875%;
 	height: auto;
 	aspect-ratio: 1188/674;
@@ -182,56 +193,89 @@ video {
 	display: grid;
 	grid-template-rows: 42% 33% 25%;
 }
-#pop_up div {
+.pop_up div {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
 	align-content: center;
 }
-#pop_up > div:first-child img {
+.pop_up > div:first-child img {
 	width: 83.92%;
 	height: auto;
 	aspect-ratio: 997/103;
 	max-width: 997px;
 	max-height: 103px;
 }
-#pop_up #pop_up_data {
+.pop_up .pop_up_data {
 	display: grid;
 	grid-template-columns: 38% 31% 31%;
 }
-#pop_up_data div:first-child {
+.pop_up_data div:first-child {
 	font-size: 38px;
 	justify-content: flex-end;
 }
-#pop_up_data > div {
+.pop_up_data > div {
 	margin-bottom: 15%;
 }
-#pop_up_data input {
+.pop_up_data input {
 	width: 80%;
     height: auto;
     font-size: 38px;
     aspect-ratio: 105 / 31;
 }
-#pop_up_data div:last-child {
+.pop_up_data div:last-child {
 	justify-content: flex-start;
 }
-#pop_up_data div:last-child img {
+.pop_up_data div:last-child img {
 	width: 25%;
 	display: block;
 }
-#pop_up > div:last-child img {
+.pop_up > div:last-child img {
 	width: 38.3%;
 	height: auto;
 	max-width: 455px;
 	max-height: 59px;
 	aspect-ratio: 455/59;
 }
-#pop_up #confirm_btn.off {
+.pop_up #confirm_btn.off {
 	filter: grayscale(100%);
 }
-#pop_up #confirm_btn.on {
+.pop_up #confirm_btn.on {
 	filter: grayscale(0%);
 }
+
+/* -------------------- buttons --------------------- */
+#buy_btn.on {
+	background-image: url(../../public/img/buy_btn1.png);
+}
+#buy_btn.off {
+	background-image: url(../../public/img/buy_btn2.png);
+}
+#inventory_btn.on {
+	background-image: url(../../public/img/inventory_btn1.png);
+}
+#inventory_btn.off {
+	background-image: url(../../public/img/inventory_btn2.png);
+}
+#buymore_btn {
+	margin-right: 1%;
+}
+#buymore_btn.on {
+	background-image: url(../../public/img/buy_more_btn1.png);
+}
+#buymore_btn.off {
+	background-image: url(../../public/img/buy_more_btn2.png);
+}
+#see_inventory_btn.on {
+	background-image: url(../../public/img/see_inventory_btn.png);
+}
+#start_btn.on {
+	background-image: url(../../public/img/start_btn1.png);
+}
+#start_btn.off {
+	background-image: url(../../public/img/start_btn2.png);
+}
+
 
 
 @media (max-aspect-ratio: 192 / 98) {
@@ -257,7 +301,7 @@ video {
 			font-size: 22px;
 			border-radius: 4px;
 		}
-		#pop_up_data div:first-child, #pop_up_data input {
+		.pop_up_data div:first-child, .pop_up_data input {
 			font-size: 33px;
 		}
 	}
@@ -272,7 +316,7 @@ video {
 		#all-data div {
 			font-size: 16px;
 		}
-		#pop_up_data div:first-child, #pop_up_data input {
+		.pop_up_data div:first-child, .pop_up_data input {
 			font-size: 26px;
 		}
 	}
@@ -294,7 +338,7 @@ video {
 		#all-data div {
 			font-size: 20px;
 		}
-		#pop_up_data div:first-child, #pop_up_data input {
+		.pop_up_data div:first-child, .pop_up_data input {
 			font-size: 33px;
 		}
 
@@ -305,7 +349,7 @@ video {
 			font-size: 17px;
 			border-radius: 4px;
 		}
-		#pop_up_data div:first-child, #pop_up_data input {
+		.pop_up_data div:first-child, .pop_up_data input {
 			font-size: 23px;
 		}
 
@@ -315,7 +359,7 @@ video {
 		#all-data div {
 			font-size: 14px;
 		}
-		#pop_up_data div:first-child, #pop_up_data input {
+		.pop_up_data div:first-child, .pop_up_data input {
 			font-size: 18px;
 		}
 
@@ -325,7 +369,7 @@ video {
 		#all-data div {
 			font-size: 12px;
 		}
-		#pop_up_data div:first-child, #pop_up_data input {
+		.pop_up_data div:first-child, .pop_up_data input {
 			font-size: 16px;
 		}
 
@@ -353,6 +397,15 @@ video {
   grid-template-columns: 55% 45%;
   margin: 0 auto;
 }
+#index #logoposition {
+	justify-content: flex-end;
+	align-items: flex-end;
+	z-index: 0;
+}
+#index #logoposition img {
+	width: 10%;
+	margin: 0 13px 11px 0;
+}
 
 #index #cnt_bt {
   display: flex;
@@ -368,179 +421,143 @@ video {
 
 /*main page*/
 #main {
-  position: relative;
+	position: relative;
 }
 #main #main-content {
-  display: grid;
-  grid-template-rows: 5.5% 10% 12% 62.5%;
-  grid-template-columns: 100%;
-  margin: 0 auto;
-  position: relative;
-  z-index: 2;
-}
-#main #logoposition {
-  z-index: -1;
-  justify-content: flex-start;
-  align-items: flex-start;
-}
-#main  #logoposition img {
-  width: 10%;
-  margin: 1% 0 0 1%;
+	display: grid;
+	grid-template-rows: 5.5% 10% 12% 62.5%;
+	grid-template-columns: 100%;
+	margin: 0 auto;
+	position: relative;
+	z-index: 2;
 }
 
 #main #all-title img{
-  width: 23.44%;
-  height: auto;
-  aspect-ratio: 45/4;
-  max-width: 450px;
-  max-height: 40px;
+	width: 23.44%;
+	height: auto;
+	aspect-ratio: 45/4;
+	max-width: 450px;
+	max-height: 40px;
 }
 #main-info, #main-btn {
-  width: 78.125%;
-  margin: 0px auto;
+	width: 78.125%;
+	margin: 0px auto;
 
 }
 #main-info {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-content: center;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-content: center;
 }
 #MOVEfaucet {
-  width: 68%;
-  font-family: "Titillium Web", sans-serif;
-  font-size: 12px;
-  font-weight: 700;
-  font-style: normal;
-  display: flex;
-  align-items: center;
+	width: 68%;
+	font-family: "Titillium Web", sans-serif;
+	font-size: 12px;
+	font-weight: 700;
+	font-style: normal;
 } 
 #MOVEfaucet img#faucet_btn {
-  width: 35%;
-  vertical-align: middle;
-  margin-left: -5px;
-  margin-right: 5px;
-  cursor: pointer;
+	width: 35%;
+	vertical-align: middle;
+	margin-left: -5px;
+	margin-right: 5px;
+	cursor: pointer;
 }
 #MOVEfaucet img#aptos {
-  width: 53%;
-  aspect-ratio: 447/41;
-  vertical-align: middle;
+	width: 53%;
+	vertical-align: middle;
 }
 #medal {
-  width: 32%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  align-content: center;
-  position: relative;
+	width: 32%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-end;
+	align-content: center;
+	position: relative;
 }
 #medal div {
-  width: 30%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  align-content: center;
+	width: 30%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-end;
+	align-content: center;
 }
 #medal #medal_R {
-  width: fit-content;
-  font-size: 32px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-content: center;
+	width: fit-content;
+	font-size: 32px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-content: center;
 }
 #medal img {
-  width: 40%;
-  display: block;
-  margin-right: 8%;
+	width: 40%;
+	display: block;
+	margin-right: 8%;
 }
 #main-btn {
-  background-image: url('../../public/img/welcome_banner.png');
+	background-image: url('../../public/img/welcome_banner.png');
 }
 #main-btn, #main-btn > div {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  align-content: flex-end;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-end;
+	align-content: flex-end;
 }
 #main-btn > div {
-  width: 50%;
-  aspect-ratio: 1/1;
-  margin-right: 10px;
+	width: 50%;
+	aspect-ratio: 1/1;
+	margin-right: 10px;
 }
 
-#main .on {
-  cursor: pointer;
-}
-#main .off {
-  cursor: default;
-}
 #needcard_txt, #buy_btn, #inventory_btn, #start_btn {
-  background-position: center right;
-  background-repeat: no-repeat;
-  background-size: 100% auto;
+	background-position: center right;
+	background-repeat: no-repeat;
+	background-size: 100% auto;
 }
 #needcard_txt {
-  width: 55.73%;
-  max-width: 418px;
-  max-height: 44px;
-  aspect-ratio: 418/44;
+	width: 55.73%;
+	max-width: 418px;
+	max-height: 44px;
+	aspect-ratio: 418/44;
 }
 #needcard_txt img {
-  width: 100%;
+	width: 100%;
 }
-#buy_btn, #inventory_btn {
-  margin-bottom: 10px;
+#main #buy_btn, #main #inventory_btn {
+	margin-bottom: 10px;
 }
-#buy_btn, #inventory_btn {
-  width: 61%;
-  height: auto;
-  max-width: 455px;
-  max-height: 59px;
-  aspect-ratio: 455/59;
+#main #buy_btn, #main #inventory_btn {
+	width: 61%;
+	height: auto;
+	max-width: 455px;
+	max-height: 59px;
+	aspect-ratio: 455/59;
 }
-#buy_btn.on {
-  background-image: url(../../public/img/buy_btn1.png);
-}
-#buy_btn.off {
-  background-image: url(../../public/img/buy_btn2.png);
-}
-#inventory_btn.on {
-  background-image: url(../../public/img/inventory_btn1.png);
-}
-#inventory_btn.off {
-  background-image: url(../../public/img/inventory_btn2.png);
-}
-#start_btn {
-  width: 84%;
-  max-width: 630px;
-  max-height: 82px;
-  aspect-ratio: 630/82;
-  margin-bottom: 8px;
-}
-#start_btn.on {
-  background-image: url(../../public/img/start_btn1.png);
-}
-#start_btn.off {
-  background-image: url(../../public/img/start_btn2.png);
+#main #start_btn {
+	width: 84%;
+	max-width: 630px;
+	max-height: 82px;
+	aspect-ratio: 630/82;
+	margin-bottom: 8px;
 }
 
 
 @media screen and (max-width: 1550px) {
-  #medal #medal_R {
-    font-size: 24px;
-  }
+	#medal #medal_R {
+		font-size: 24px;
+	}
 }
 @media screen and (max-width: 1200px) {
-  #medal #medal_R {
-    font-size: 20px;
-  }
+	#medal #medal_R {
+		font-size: 20px;
+	}
 }
 @media screen and (max-width: 750px) {
-  #medal #medal_R {
-    font-size: 12px;
-  }
+	#medal #medal_R {
+		font-size: 12px;
+	}
 }
 /*main page*/
 
@@ -549,3 +566,179 @@ video {
 	position: relative;
 }
 /*anime page*/
+
+
+/*cards_received page*/
+#cards_received {
+	position: relative;
+}
+#cards_received #cdr-content {
+	display: grid;
+	grid-template-rows: 5.5% 12% 68.5% 14%;
+	grid-template-columns: 100%;
+	margin: 0 auto;
+	position: relative;
+	z-index: 2;
+}
+
+#cards_received #all-title img{
+	width: 19.01%;
+	height: auto;
+	aspect-ratio: 365/35;
+	max-width: 365px;
+	max-height: 35px;
+}
+
+#cards_drawbox {
+	background-image: url("../../public/img/cards_received_bg.png");
+}
+#cards_drawbox > div {
+	width: 62%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-content: center;
+	margin: 6% auto;
+}
+#cards_drawbox > div img {
+	width: 20%;
+}
+#cards_received .on {
+	cursor: pointer;
+}
+#cards_received .off {
+	cursor: default;
+}
+
+#buymore_btn, #see_inventory_btn {
+	width: 23.7%;
+	max-width: 455px;
+	max-height: 59px;
+	aspect-ratio: 455/59;
+	margin-bottom: 8px;
+	background-position: center right;
+	background-repeat: no-repeat;
+	background-size: 100% auto;
+}
+/* cards_received page */
+
+/*inventory page*/
+#inventory {
+	position: relative;
+}
+#inventory #ivt-content {
+	display: grid;
+	grid-template-rows: 5.5% 12% 68.5% 14%;
+	grid-template-columns: 100%;
+	margin: 0 auto;
+	position: relative;
+	z-index: 2;
+}
+#inventory #logoposition {
+	z-index: 50;
+}
+
+#inventory #all-title{
+	display: flex;
+	justify-content: center;
+	align-content: center;
+	position: relative;
+}
+#inventory #all-title > div {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 3;
+}
+#inventory #all-title div {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-content: flex-end;
+}
+#inventory #all-title #inventory-info.more50 {
+	justify-content: flex-start;
+}
+#inventory #all-title div img {
+	width: 100%;
+}
+#inventory #all-title #inventoryTtl{
+	width: 12.917%;
+	height: auto;
+	aspect-ratio: 248/35;
+	max-width: 248px;
+	max-height: 35px;
+}
+#inventory #all-title #burn_btn {
+	width: 12.4%;
+	height: auto;
+	aspect-ratio: 238/68;
+	max-width: 238px;
+	max-height: 68px;
+	margin-left: 7.5%;
+	cursor: pointer;
+}
+#inventory #all-title #needcardtxt {
+	width: 21.77%;
+	height: auto;
+	aspect-ratio: 418/44;
+	max-width: 418px;
+	max-height: 44px;
+	margin-right: 7.5%;
+}
+
+#inventory_drawbox {
+	width: 85%;
+	background-image: url("../../public/img/box.png");
+	margin: 0px auto;
+}
+#inventory_drawbox.bgsize {
+	background-size: 100% 100%;
+}
+#inventory_drawbox > div {
+	width: 85%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-content: center;
+	margin: 2% auto 0;
+}
+#inventory_drawbox > div img {
+	width: 10%;
+	margin-top: -0.25%;
+}
+
+#inventory #buymore_btn, #inventory #start_btn {
+	width: 23.7%;
+	max-width: 455px;
+	max-height: 59px;
+	aspect-ratio: 455/59;
+	margin-bottom: 8px;
+	background-position: center right;
+	background-repeat: no-repeat;
+	background-size: 100% auto;
+}
+#buymore_btn {
+	margin-right: 1%;
+}
+
+#inventory #warning_pop_box {
+	background-color: rgba(0, 0, 0, 0.8);
+}
+#inventory #warning_pop {
+	width: 61.875%;
+	height: auto;
+	aspect-ratio: 1188/673;
+	max-width: 1188px;
+	max-height: 673px;
+	background-image: url("../../public/img/warning_pop_up.png");
+	display: grid;
+	grid-template-rows: 72% 28%;
+}
+#inventory #warning_pop .buttons {
+	align-content: flex-start;
+}
+#inventory #warning_pop .buttons img:first-child {
+	margin-right: 1%;
+}
+/* inventory page */
