@@ -6,7 +6,9 @@ import { useAptosWallet } from '@razorlabs/wallet-kit';
 import { address_formatter} from '../_utils/helper'
 import { StoreContext } from '../_components/Provider';
 import { useRouter } from 'next/navigation'
-
+import { AptosSignAndSubmitTransactionInput } from '@aptos-labs/wallet-standard';
+import { contract_address } from '../_utils/chain';
+import { handle_game } from '../_utils/chain';
 
 function Home() {
   const router = useRouter()
@@ -41,6 +43,24 @@ function Home() {
   const pop_battle_alert = () => {
     setPopupBattle(true)
   }
+  const handle_burn = async () => {
+    if (wallet.account === undefined) {
+      return;
+    }
+    const transaction: AptosSignAndSubmitTransactionInput = {
+      payload: {
+      // All transactions on Aptos are implemented via smart contracts.
+      function: `${contract_address}::nft::burn_all`,
+      functionArguments: [],
+      },
+    };
+    let tx = await wallet.signAndSubmitTransaction(transaction).catch (error => {
+      console.log("error",error);
+      window.alert("Oops, something went wrong.\nPlease make sure you have APT for gas and try again.");
+    });
+    setNftBalance(prev => [])
+    setPopupBurn(false)
+  }
   return (
     <div id="inventory" className="container-block">
       <div className="content" id="ivt-content">
@@ -48,7 +68,7 @@ function Home() {
           <div id="warning_pop" className="pop_up bgsize">
             <div></div>
             <div className="buttons">
-              <img className="on" src="./img/yes_btn.png"/>
+              <img className="on" onClick={handle_burn} src="./img/yes_btn.png"/>
               <img className="on" onClick={pop_burn_cancel} src="./img/no_btn.png"/>
             </div>
           </div>
@@ -63,7 +83,7 @@ function Home() {
             </div>
             <div className="buttons">
               {/* <!-- if #pop_up_bet > 0, then #confirm_btn add className "on" and remove "off".--> */}
-              <img id="confirm_btn" className={(bet > 0) && (bet <= tokenBalace)? "on":"off"} src="./img/confirm_btn.png"/>
+              <img id="confirm_btn" className={(bet > 0) && (bet <= tokenBalace)? "on":"off"} src="./img/confirm_btn.png" onClick={(bet > 0) && (bet <= tokenBalace)?()=>{handle_game(wallet, router, bet, nftBalance)}:()=>{}}/>
               <img onClick={pop_battle_cancel} src="./img/cancel_btn.png"/>
             </div>
           </div>

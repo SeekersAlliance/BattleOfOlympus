@@ -1,60 +1,82 @@
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta property="og:type" content="website" >
-    <meta property="og:title" content="Seekers Alliance" >
-    <link rel="icon" href="./favicon.ico">
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-    <script src="./main.js"></script>
-    <link rel="stylesheet" type="text/css" href="./style.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seekers Alliance</title>
     <style>
-      #index {
-        background-image: url("./img/bg.jpg");
-    	  min-width: unset;
-	      display: flex;
-      	flex-wrap: wrap;
-	      justify-content: center;
-      	align-content: flex-start;
-        position: relative;
-      }
-      #index.bgsize {
-	      background-size: auto 100%;
-      }
-      #index #index-content {
-        display: grid;
-    	  grid-template-rows: 56% 40%;
-	      grid-template-columns: 55% 45%;
-    	  margin: 0 auto;
-      }
-
-      #index #cnt_bt {
-        display: flex;
-        flex-wrap: nowrap;
-        justify-content: center;
-        align-items: center;
-      }
-      #index #cnt_bt img {
-        width: 50%;
-        height: auto;
-      }
-
-
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            text-align: center;
+        }
+        button {
+            font-size: 18px;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        #loading {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
     </style>
-
-  </head>
-  <body>
-    <div id="index" class="container-block bgsize">
-      <div class="content" id="logoposition">
-        <img src="./img/logo.png">
-      </div>
-      <div class="content" id="index-content">
-        <div></div>
-        <div></div>
-        <div id="cnt_bt">
-          <a href="./" target="_self"><img src="./img/connect_button.png"></a>
-        </div>
-        <div></div>
-      </div>
+</head>
+<body>
+    <div class="container">
+        <h1>Seekers Alliance Game</h1>
+        <div id="loading">Loading... <span id="countdown">5</span></div>
+        <p>Click any button to end the game with a result.</p>
+        <button onclick="endGame('win')" disabled>Win</button>
+        <button onclick="endGame('draw')" disabled>Draw</button>
+        <button onclick="endGame('lose')" disabled>Lose</button>
     </div>
-  </body>
+
+    <script>
+        function endGame(result) {
+            window.parent.postMessage({
+                messageId: "gameEnded",
+                result: result
+            }, '*');
+        }
+
+        // Disable buttons and start countdown
+        const buttons = document.querySelectorAll('button');
+        const countdownElement = document.getElementById('countdown');
+        const loadingElement = document.getElementById('loading');
+        let countdown = 5;
+
+        function updateCountdown() {
+            countdown--;
+            countdownElement.textContent = countdown;
+            if (countdown > 0) {
+                setTimeout(updateCountdown, 1000);
+            } else {
+                loadingElement.style.display = 'none';
+                buttons.forEach(button => button.disabled = false);
+            }
+        }
+
+        updateCountdown();
+    </script>
+</body>
 </html>
