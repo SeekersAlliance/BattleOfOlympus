@@ -69,7 +69,7 @@ function Home() {
   
   return (
     <div style={{width: "100%", height: "100vh"}}>
-    <iframe src="./index.html" frameBorder="0" width="100%" height="100%" allowFullScreen></iframe>
+    <iframe src="../game/index.html" frameBorder="0" width="100%" height="100%" allowFullScreen></iframe>
   </div>
   )
 }
