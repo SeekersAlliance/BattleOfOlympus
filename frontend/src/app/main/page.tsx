@@ -75,6 +75,7 @@ const Home = () => {
       payload: {
       // All transactions on Aptos are implemented via smart contracts.
       function: `${contract_address}::market::draw_cards`,
+      typeArguments: ["0x275f508689de8756169d1ee02d889c777de1cebda3a7bbcce63ba8a27c563c6f::tokens::USDC"],
       functionArguments: [rAnDom_SeEd],
       },
     };
