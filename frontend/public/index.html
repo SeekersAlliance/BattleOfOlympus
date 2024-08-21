@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seekers Alliance</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            text-align: center;
+        }
+        button {
+            font-size: 18px;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        #loading {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Seekers Alliance Game</h1>
+        <div id="loading">Loading... <span id="countdown">5</span></div>
+        <p>Click any button to end the game with a result.</p>
+        <button onclick="endGame('win')" disabled>Win</button>
+        <button onclick="endGame('draw')" disabled>Draw</button>
+        <button onclick="endGame('lose')" disabled>Lose</button>
+    </div>
+
+    <script>
+        function endGame(result) {
+            window.parent.postMessage({
+                messageId: "gameEnded",
+                result: result
+            }, '*');
+        }
+
+        // Disable buttons and start countdown
+        const buttons = document.querySelectorAll('button');
+        const countdownElement = document.getElementById('countdown');
+        const loadingElement = document.getElementById('loading');
+        let countdown = 5;
+
+        function updateCountdown() {
+            countdown--;
+            countdownElement.textContent = countdown;
+            if (countdown > 0) {
+                setTimeout(updateCountdown, 1000);
+            } else {
+                loadingElement.style.display = 'none';
+                buttons.forEach(button => button.disabled = false);
+            }
+        }
+
+        updateCountdown();
+    </script>
+</body>
+</html>
