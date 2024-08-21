@@ -90,7 +90,7 @@ function Home() {
         </div>
         <div id="all-data">
           <div id="logoposition">
-            <a href="./main" target="_self"><img src="./img/logo.png"/></a>
+            <Link href="./main" target="_self"><img src="./img/logo.png"/></Link>
           </div>
           <div id="Aptos" style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}><img src="./img/move2.png"/>Movement-Aptos</div>
           <div id="wallet_address">{address_formatter(wallet?.address)}</div>
