@@ -74,21 +74,15 @@ module BattleOfOlympus::gameManager{
         let bet_amount = game_info.bet_amount;
         if (game_state == 2) {
             asset::mint_to_primary_stores(sender, address_of(sender), bet_amount * 2);
-            event::emit(GameFinished{
-                player: address_of(sender),
-                opponent: game_info.opponent,
-                bet_amount: bet_amount,
-                game_state: game_state,
-            });
         } else if (game_state == 1) {
             asset::mint_to_primary_stores(sender, address_of(sender), bet_amount);
-            event::emit(GameFinished{
-                player: address_of(sender),
-                opponent: game_info.opponent,
-                bet_amount: bet_amount,
-                game_state: game_state,
-            });
-        }
+        };
+        event::emit(GameFinished{
+            player: address_of(sender),
+            opponent: game_info.opponent,
+            bet_amount: bet_amount,
+            game_state: game_state,
+        });
     }
 
     #[view]
