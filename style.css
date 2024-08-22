@@ -164,7 +164,7 @@ video {
 	max-height: 674px;
 	background-image: url("./img/pop_up_bg.png");
 	display: grid;
-	grid-template-rows: 42% 33% 25%;
+	grid-template-rows: 42% 20% 13% 25%;
 }
 .pop_up div {
 	display: flex;
@@ -187,9 +187,9 @@ video {
 	font-size: 38px;
 	justify-content: flex-end;
 }
-.pop_up_data > div {
+/*.pop_up_data > div {
 	margin-bottom: 15%;
-}
+}*/
 .pop_up_data input {
 	width: 80%;
     height: auto;
@@ -209,6 +209,12 @@ video {
 	max-width: 455px;
 	max-height: 59px;
 	aspect-ratio: 455/59;
+}
+#place_bet_info {
+	font-size: 30px;
+	font-weight: normal;
+	font-family: "arial", sans-serif;
+	align-content: start;
 }
 .pop_up #confirm_btn.off {
 	filter: grayscale(100%);
@@ -266,7 +272,12 @@ video {
 	@media screen and (max-width: 1800px) {
 		#all-data div {
 			font-size: 25px;
-		}		
+		}
+	}
+	@media screen and (max-width: 1600px) {
+		#place_bet_info {
+			font-size: 25px;
+		}
 	}
 
 	@media screen and (max-width: 1550px) {
@@ -284,7 +295,11 @@ video {
 			font-size: 19px;
 		}
 	}
-
+	@media screen and (max-width: 1320px) {
+		#place_bet_info {
+			font-size: 20px;
+		}				
+	}
 	@media screen and (max-width: 1200px) {
 		#all-data div {
 			font-size: 16px;
@@ -293,6 +308,11 @@ video {
 			font-size: 26px;
 		}
 	}
+	@media screen and (max-width: 1050px) {
+		#place_bet_info {
+			font-size: 15px;
+		}				
+	}
 }
 
 @media (min-aspect-ratio: 192 / 98) {
@@ -300,6 +320,9 @@ video {
 		width: auto;
 		height: 100vh;
 	}
+	#place_bet_info {
+		font-size: 25px;
+	}		
 
 	@media screen and (min-width: 1920px) {
 		#logoposition {
@@ -325,7 +348,6 @@ video {
 		.pop_up_data div:first-child, .pop_up_data input {
 			font-size: 23px;
 		}
-
 	}
 
 	@media screen and (max-width: 1400px) {
@@ -337,7 +359,6 @@ video {
 		}
 
 	}
-
 	@media screen and (max-width: 1200px) {
 		#all-data div {
 			font-size: 12px;
@@ -345,6 +366,21 @@ video {
 		.pop_up_data div:first-child, .pop_up_data input {
 			font-size: 16px;
 		}
-
 	}
+	@media screen and (max-height: 750px) {
+		#place_bet_info {
+			font-size: 20px;
+		}				
+	}
+	@media screen and (max-height: 600px) {
+		#place_bet_info {
+			font-size: 15px;
+		}				
+	}
+	@media screen and (max-height: 450px) {
+		#place_bet_info {
+			font-size: 12px;
+		}				
+	}
+
 }
