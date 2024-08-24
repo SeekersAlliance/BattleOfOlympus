@@ -58,11 +58,16 @@ function Home() {
   }
   React.useEffect(() => {
     
-
+    // read the local storage "bet" if it exists, if not, redirect to main page
+    let bet_number = localStorage.getItem("bet");
+    if (bet_number == null) {
+      router.push('/main');
+    }
     window.addEventListener("message", handleMessage);
 
     return () => {
       window.removeEventListener("message", handleMessage);
+      localStorage.removeItem("bet");
     };
   }, []);
 
