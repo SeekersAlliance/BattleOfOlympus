@@ -56,11 +56,12 @@ function Home() {
     };
     let tx = await wallet.signAndSubmitTransaction(transaction).catch (error => {
       console.log("error",error);
-      window.alert("Oops, something went wrong.\nPlease make sure you have APT for gas and try again.");
+      window.alert("Oops, something went wrong.\nPlease make sure you have $MOVE for gas and try again.");
     });
     setNftBalance(prev => [])
     setPopupBurn(false)
   }
+
   return (
     <div id="inventory" className="container-block">
       <div className="content" id="ivt-content">
@@ -111,7 +112,7 @@ function Home() {
         </div>
         <div className="buttons">
           {/* <!--  if have 50 cards, #buymore_btn add className "off", remove "on", and remove onclick event : --> */}
-          <Link href="./main"><div id="buymore_btn" className="on" onClick={()=>{}}></div></Link>
+          <div id="buymore_btn" className="on" className={!maxCard? "on":"off"} onClick={!maxCard? ()=>{router.push("/main")}:()=>{}}></div>
           {/* <!--  if player can start play, #start_btn add className "on", remove "off", and add onclick event "place_alert()" : --> */}
           <div id="start_btn" className={maxCard? "on":"off"} onClick={maxCard? pop_battle_alert:()=>{}}></div>
         </div>

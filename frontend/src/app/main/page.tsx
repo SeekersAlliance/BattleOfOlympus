@@ -56,7 +56,7 @@ const Home = () => {
     };
     let tx = await wallet.signAndSubmitTransaction(transaction).catch (error => {
       console.log("error",error);
-      window.alert("Oops, something went wrong.\nPlease make sure you have APT for gas and try again.");
+      window.alert("Oops, something went wrong.\nPlease make sure you have $MOVE for gas and try again.");
     });
     console.log("hash",tx.args.hash);
     setTokenBalance(prev => prev + 10)
@@ -81,7 +81,7 @@ const Home = () => {
     };
     let tx = await wallet.signAndSubmitTransaction(transaction).catch (error => {
       console.log("error",error);
-      window.alert("Oops, something went wrong.\nPlease make sure you have APT for gas and try again.");
+      window.alert("Oops, something went wrong.\nPlease make sure you have $MOVE for gas and try again.");
     });
     if (tx === undefined) {
       setBuyEvent(prev => false)
@@ -107,6 +107,7 @@ const Home = () => {
             <div className="pop_up_data">
               <div>I want to bet</div>
               <div><input id="pop_up_bet" style={{color:"black", paddingLeft:"10px"}} type="number" value={bet} onChange={(e) => setBet(e.target.value)}/></div>
+              
               <div><img src="./img/red_medal.png"/></div>
             </div>
             <div>
