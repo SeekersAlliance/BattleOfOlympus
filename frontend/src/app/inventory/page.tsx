@@ -82,6 +82,11 @@ function Home() {
               <div><input id="pop_up_bet" style={{color:"black", paddingLeft:"10px"}} type="number" value={bet} onChange={(e) => setBet(e.target.value)}/></div>
               <div><img src="./img/red_medal.png"/></div>
             </div>
+            <div id="place_bet_info" class="pop_up_data">
+              <div></div>
+              <div>(Amount Available: {tokenBalace})</div>
+              <div></div>
+            </div>
             <div className="buttons">
               {/* <!-- if #pop_up_bet > 0, then #confirm_btn add className "on" and remove "off".--> */}
               <img id="confirm_btn" className={(bet > 0) && (bet <= tokenBalace)? "on":"off"} src="./img/confirm_btn.png" onClick={(bet > 0) && (bet <= tokenBalace)?()=>{handle_game(wallet, router, bet, nftBalance)}:()=>{}}/>
