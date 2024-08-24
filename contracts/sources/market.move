@@ -45,7 +45,7 @@ module BattleOfOlympus::market {
         let rng = 0;
         let total_prob:u8 = 105;
         let random_seed = bcs::to_bytes<u64>(&_random_seed);
-        while (i < 10) {
+        while (i < 50) {
             let idx:u8 = 0;
             let rng = *(vector::borrow(&random_seed, 0)) % total_prob;
             random_seed = hash::sha2_256(random_seed);
