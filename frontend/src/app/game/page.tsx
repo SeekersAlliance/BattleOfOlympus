@@ -12,14 +12,13 @@ function Home() {
   const {tokenBalace, setTokenBalance} = React.useContext(StoreContext);
   const wallet = useAptosWallet();
   const router = useRouter();
-  const [finished, setFinished] = React.useState(false);
 
   const handleMessage = async (event:any) => {
     console.log("event",event);
     if (event.origin !== window.location.origin) return;
     if (event.data.messageId !== "gameEnded") return;
-    handle_claim(event.data.result);
-    setFinished(prev => true);
+    await handle_claim(event.data.result);
+    localStorage.removeItem("bet");
   };
   const handle_claim = async (status: string) => {
     // statusCode win->2, draw->1, lose->0
@@ -62,16 +61,13 @@ function Home() {
     
     // read the local storage "bet" if it exists, if not, redirect to main page
     let bet_number = localStorage.getItem("bet");
-    if (bet_number == null) {
+    if (bet_number == null || wallet.account === undefined) {
       router.push('/main');
     }
     window.addEventListener("message", handleMessage);
 
     return () => {
       window.removeEventListener("message", handleMessage);
-      if (finished) {
-        localStorage.removeItem("bet");
-      }
     };
   }, []);
 
