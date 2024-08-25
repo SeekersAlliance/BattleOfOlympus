@@ -1,82 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html>
+  <head>
+    <meta charset="utf-8">
+
     <title>Seekers Alliance</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-        }
-        .container {
-            text-align: center;
-        }
-        button {
-            font-size: 18px;
-            padding: 10px 20px;
-            margin: 10px;
-            cursor: pointer;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        button:disabled {
-            background-color: #cccccc;
-            cursor: not-allowed;
-        }
-        #loading {
-            font-size: 18px;
-            margin-bottom: 20px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Seekers Alliance Game</h1>
-        <div id="loading">Loading... <span id="countdown">5</span></div>
-        <p>Click any button to end the game with a result.</p>
-        <button onclick="endGame('win')" disabled>Win</button>
-        <button onclick="endGame('draw')" disabled>Draw</button>
-        <button onclick="endGame('lose')" disabled>Lose</button>
+
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1,minimal-ui=true"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="full-screen" content="yes"/>
+    <meta name="screen-orientation" content="landscape"/>
+    <meta name="x5-fullscreen" content="true"/>
+    <meta name="360-fullscreen" content="true"/>
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    
+    <link rel="stylesheet" type="text/css" href="index.css"/>
+    <link rel="icon" href="favicon.ico"/>
+  </head>
+  <body>
+
+    <div id="GameDiv" cc_exact_fit_screen="true">
+      <div id="Cocos3dGameContainer">
+        <canvas id="GameCanvas" height="100vh" tabindex="99"></canvas>
+      </div>
+      
+    <div id="Splash">
+      <div id="loading-text-box">
+        <img src="./img/loading-arrow.png" />
+        <img src="./img/loading-L.png" />
+        <img src="./img/loading-O.png" />
+        <img src="./img/loading-A.png" />
+        <img src="./img/loading-D.png" />
+        <img src="./img/loading-I.png" />
+        <img src="./img/loading-N.png" />
+        <img src="./img/loading-G.png" />
+        <img src="./img/loading-dot.png" id="loading-dot1" />
+        <img src="./img/loading-dot.png" id="loading-dot2" />
+        <img src="./img/loading-dot.png" id="loading-dot3" />
+      </div>
     </div>
+    <!-- Polyfills bundle. -->
 
-    <script>
-        function endGame(result) {
-            window.parent.postMessage({
-                messageId: "gameEnded",
-                result: result
-            }, '*');
-        }
+<script src="src/polyfills.bundle.js" charset="utf-8"> </script>    
 
-        // Disable buttons and start countdown
-        const buttons = document.querySelectorAll('button');
-        const countdownElement = document.getElementById('countdown');
-        const loadingElement = document.getElementById('loading');
-        let countdown = 5;
 
-        function updateCountdown() {
-            countdown--;
-            countdownElement.textContent = countdown;
-            if (countdown > 0) {
-                setTimeout(updateCountdown, 1000);
-            } else {
-                loadingElement.style.display = 'none';
-                buttons.forEach(button => button.disabled = false);
-            }
-        }
+<!-- SystemJS support. -->
+<script src="src/system.bundle.js" charset="utf-8"> </script>
 
-        updateCountdown();
-    </script>
-</body>
+<!-- Import map -->
+<script src="src/import-map.json" type="systemjs-importmap" charset="utf-8"> </script>
+
+<script>
+    System.import('./index.js').catch(function(err) { console.error(err); })
+</script>
+  </body>
 </html>
