@@ -128,7 +128,7 @@ a:active {
 	height: auto;
 	aspect-ratio: 50/39;
 	vertical-align: middle;
-	margin: -5px 6px 0 0;
+	margin-right: 3px;
 }
 
 #all-data #wallet_address {

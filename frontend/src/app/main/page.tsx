@@ -126,7 +126,7 @@ const Home = () => {
           <img src="./img/logo.png"/>
         </div>
         <div id="all-data">
-            <div id="Aptos" style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}><img src="./img/move2.png"/>Movement-Aptos</div>
+            <div id="Aptos" style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}><img src="./img/move2.png" /* style={{marginTop:"1px"}} *//>Movement-Aptos</div>
             <div id="wallet_address">{address_formatter(wallet?.address)}</div>
           </div>
         <div id="all-title">
