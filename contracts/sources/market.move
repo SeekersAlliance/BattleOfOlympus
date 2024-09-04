@@ -6,13 +6,11 @@ module BattleOfOlympus::market {
     use std::debug;
     use std::bcs;
     use std::string;
-    use aptos_std::from_bcs;
     use std::hash;
     use aptos_std::table;
     use aptos_std::table::Table;
     use aptos_framework::event;
     use aptos_framework::coin;
-    use aptos_framework::randomness;
     use aptos_framework::account;
     use aptos_framework::account::SignerCapability;
     use BattleOfOlympus::nft;
@@ -36,19 +34,18 @@ module BattleOfOlympus::market {
 
     }
 
-    public entry fun draw_cards/* <CoinType> */(sender: &signer, _random_seed: u64) {
+    public entry fun draw_cards<CoinType>(sender: &signer, _random_seed: u64) {
         
-
-        /* let withdrawn_coin = coin::withdraw<CoinType>(sender, 10000000);
+        let withdrawn_coin = coin::withdraw<CoinType>(sender, 10000000);
         let admin_address: address = @0x20808790e8eb0b6cfbf49ac751107aa41edd9ef01f2c7191cdc32326c50092bb;
-        coin::deposit<CoinType>(admin_address, withdrawn_coin); */
+        coin::deposit<CoinType>(admin_address, withdrawn_coin);
         
         let my_ids = vector::empty<u8>();
         let i = 0;
         let rng = 0;
         let total_prob:u8 = 105;
         let random_seed = bcs::to_bytes<u64>(&_random_seed);
-        while (i < 10) {
+        while (i < 50) {
             let idx:u8 = 0;
             let rng = *(vector::borrow(&random_seed, 0)) % total_prob;
             random_seed = hash::sha2_256(random_seed);
@@ -82,7 +79,7 @@ module BattleOfOlympus::market {
     
 
 
-    #[test(admin = @0x123, buyer = @0x2, seller = @0x3)]
+    #[test(admin = @BattleOfOlympus, buyer = @0x2, seller = @0x3)]
     public fun test_draw_cards(admin: &signer, buyer: &signer, seller: &signer) {
 
         nft::init(admin);
