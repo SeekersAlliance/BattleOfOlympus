@@ -3,7 +3,7 @@ import { Aptos, AptosConfig, InputViewFunctionData } from '@aptos-labs/ts-sdk'
 import { nft_balance_formatter } from './helper'
 let _provider: Aptos | undefined
 const endpoint = 'https://aptos.testnet.suzuka.movementlabs.xyz/v1'
-export const contract_address = '0xd78afc1a0b56b2e091caedcdb164385564ad6a553261fe2e3102a022e3ca6d4d'
+export const contract_address = '0x41283d0be1e6f0a1f8f5939e136f8f5a9442e295ca42812cd256f529dc9e10d7'
 import axios from 'axios'
 import { AptosSignAndSubmitTransactionInput } from '@aptos-labs/wallet-standard'
 
