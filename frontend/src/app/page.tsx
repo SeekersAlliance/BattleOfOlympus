@@ -6,6 +6,7 @@ import { useAptosWallet } from '@razorlabs/wallet-kit';
 import { StoreContext } from './_components/Provider';
 import { get_token_balance, get_nft_balance } from './_utils/chain';
 import '@razorlabs/wallet-kit/style.css';
+import './razorlabs-wallet-kit-custom.css'
 import React from 'react';
 
 export default function Home() {
@@ -64,7 +65,7 @@ export default function Home() {
         <div id="cnt_bt" style={{display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center"}}>
           <div style={{width:"60%"}}>
             {/* <Link href="./main" target="_self"><img src="./img/connect_button.png"/></Link> */}
-            <AptosConnectButton style={{display:showButton?"":"none", width: '100%'}} onConnectSuccess={(name)=>{setShowButton(false);setConnectWallet(prev=>name)}}><img src="./img/connect_button.png"/></AptosConnectButton>
+            <AptosConnectButton style={{display:showButton?"":"none", width: '100%', color:"red"}} onConnectSuccess={(name)=>{setShowButton(false);setConnectWallet(prev=>name)}}><img src="./img/connect_button.png"/></AptosConnectButton>
           </div>
         </div>
         <div></div>
