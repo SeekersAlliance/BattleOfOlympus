@@ -1,6 +1,6 @@
 // @ts-nocheck
 'use client';
-import { AptosWalletProvider } from '@razorlabs/wallet-kit';
+import { AptosWalletProvider, AllDefaultWallets } from '@razorlabs/wallet-kit';
 import React from 'react';
 
 type Props = {
@@ -17,10 +17,10 @@ export function Provider({ children }: { children: React.ReactNode }) {
   const [tokenBalace, setTokenBalance] = React.useState(0);
   const [nftBalance, setNftBalance] = React.useState([]);
   const [drawTx, setDrawTx] = React.useState("");
-
+  console.log("tokenBalace", AllDefaultWallets);
   return (
     <StoreContext.Provider value={{ tokenBalace, setTokenBalance, nftBalance, setNftBalance, drawTx, setDrawTx }}>
-      <AptosWalletProvider autoConnect={false}>
+      <AptosWalletProvider autoConnect={false} defaultWallets={AllDefaultWallets.filter(wallet => wallet.name == "Razor Wallet")}>
         {children}
       </AptosWalletProvider>
     </StoreContext.Provider>
