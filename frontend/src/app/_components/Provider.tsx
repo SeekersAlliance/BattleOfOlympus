@@ -17,7 +17,6 @@ export function Provider({ children }: { children: React.ReactNode }) {
   const [tokenBalace, setTokenBalance] = React.useState(0);
   const [nftBalance, setNftBalance] = React.useState([]);
   const [drawTx, setDrawTx] = React.useState("");
-  console.log("tokenBalace", AllDefaultWallets);
   return (
     <StoreContext.Provider value={{ tokenBalace, setTokenBalance, nftBalance, setNftBalance, drawTx, setDrawTx }}>
       <AptosWalletProvider autoConnect={false} defaultWallets={AllDefaultWallets.filter(wallet => wallet.name == "Razor Wallet")}>

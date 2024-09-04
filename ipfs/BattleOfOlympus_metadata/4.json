@@ -1,0 +1,15 @@
+{
+  "name": "Seekers Alliance FOUR",
+  "description": "In-game NFTs for Movement Battle of Olympus Hackathon.",
+  "image": "ipfs://QmSZxCXVNfaQfeZ1pStH7TmvamYk7Txq63rrfWYTK6KAK3/4.png",
+  "attributes": [
+      {
+          "trait_type": "Name",
+          "value": "FOUR"
+      },
+      {
+          "trait_type": "Rarity",
+          "value": "Common"
+      }
+  ]
+}
