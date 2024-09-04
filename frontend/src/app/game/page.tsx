@@ -43,8 +43,7 @@ function Home() {
       console.log("error",error);
       window.alert("Oops, something went wrong.\nPlease make sure you have $MOVE for gas and try again.");
     });
-
-    if (tx == undefined) return
+    if (tx == undefined || tx.status == "Rejected")  return
     let bet_number = Number(localStorage.getItem("bet"));
     if(statusCode == 2) {
       setTokenBalance(prev => prev + bet_number);

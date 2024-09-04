@@ -58,6 +58,9 @@ const Home = () => {
       console.log("error",error);
       window.alert("Oops, something went wrong.\nPlease make sure you have $MOVE for gas and try again.");
     });
+    if (tx == undefined || tx.status == "Rejected") {
+      return
+    }
     console.log("hash",tx.args.hash);
     setTokenBalance(prev => prev + 10)
 
@@ -83,7 +86,7 @@ const Home = () => {
       console.log("error",error);
       window.alert("Oops, something went wrong.\nPlease make sure you have $MOVE for gas and try again.");
     });
-    if (tx === undefined) {
+    if (tx == undefined || tx.status == "Rejected") {
       setBuyEvent(prev => false)
       return
     }

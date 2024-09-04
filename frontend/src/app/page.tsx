@@ -11,10 +11,10 @@ import React from 'react';
 export default function Home() {
   const {tokenBalace, setTokenBalance, nftBalance, setNftBalance} = React.useContext(StoreContext);
   const [showButton, setShowButton] = React.useState(true);
+  const [connectWallet, setConnectWallet] = React.useState('');
   let wallet = useAptosWallet();
   const router = useRouter();
   React.useEffect(() => {
-    
     if (wallet.connected && wallet.account !== undefined) {
       _get_token_balance()
       _get_nft_balance()
@@ -25,7 +25,9 @@ export default function Home() {
   , []);
   React.useEffect(() => {
     if (wallet.account !== undefined) {
-      if(wallet.chain?.id != "aptos:testnet") {
+      console.log("wallet",wallet);
+      console.log("wallet.account",connectWallet);
+      if(connectWallet != "Nightly" && wallet.chain?.id != "aptos:testnet") {
         window.alert("Please connect to the Movement Aptos testnet.");
         wallet.disconnect();
       }else{
@@ -62,7 +64,7 @@ export default function Home() {
         <div id="cnt_bt" style={{display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center"}}>
           <div style={{width:"60%"}}>
             {/* <Link href="./main" target="_self"><img src="./img/connect_button.png"/></Link> */}
-            <AptosConnectButton style={{display:showButton?"":"none", width: '100%'}} onConnectSuccess={()=>{setShowButton(false)}}><img src="./img/connect_button.png"/></AptosConnectButton>
+            <AptosConnectButton style={{display:showButton?"":"none", width: '100%'}} onConnectSuccess={(name)=>{setShowButton(false);setConnectWallet(prev=>name)}}><img src="./img/connect_button.png"/></AptosConnectButton>
           </div>
         </div>
         <div></div>

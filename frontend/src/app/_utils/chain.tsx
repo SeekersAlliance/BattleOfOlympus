@@ -80,7 +80,8 @@ export const handle_game = async (wallet: any, router:any, bet_number: number, n
     console.log("error",error);
     window.alert("Oops, something went wrong.\nPlease make sure you have $MOVE for gas and try again.");
   });
-  if (tx == undefined) return
+  console.log(tx)
+  if (tx == undefined || tx.status == "Rejected") return;
   localStorage.setItem("bet", bet_number)
   localStorage.setItem("myCards", nfts.join(","))
   router.push("/game")
