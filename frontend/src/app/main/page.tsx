@@ -64,7 +64,7 @@ const Home = () => {
     console.log("hash",tx.args.hash);
     setTokenBalance(prev => prev + 10)
 
-    window.open("https://faucet.movementlabs.xyz/?network=aptos", "_blank");
+    window.open("https://faucet.movementnetwork.xyz/?network=porto", "_blank");
   }
   const handle_buy = async () => {
     if(buyEvent) return
